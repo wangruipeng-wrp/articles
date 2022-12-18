@@ -1,16 +1,6 @@
----
-title: MySQL实战：一条SQL查询语句是如何执行的？
-abbrlink: 7327
-date: 2022-06-01 11:06:13
-description: 《极客时间-MySQL实战45讲》笔记整理。
-categories: 
- - MySQL
----
+[toc]
 
-> [《极客时间-MySQL实战45讲》01 | 基础架构：一条SQL查询语句是如何执行的？](https://time.geekbang.org/column/intro/100020801)
-> - 笔记整理
-
-<!-- more -->
+> [《极客时间-MySQL实战45讲》01 | 基础架构：一条SQL查询语句是如何执行的？](https://time.geekbang.org/column/intro/100020801)，笔记整理
 
 # MySQL 架构示意图
 
@@ -41,6 +31,7 @@ MySQL架构上从大体来说可以分为Server层和存储引擎层两个部分
 查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的查询缓存都会被清空。这对于经常更新的表来说，查询缓存的命中率会非常低。除非是一些静态表，例如系统配置表之类的。
 
 MySQL 也提供了显示指定是否使用缓存的方式：将参数 query_cache_type 设置成 DEMAND，这样对于默认的 SQL 语句都不使用查询缓存。而对于确定要使用查询缓存的语句，可以用 SQL_CACHE 显式指定，像下面这样：
+
 ```sql
 mysql> select SQL_CACHE * from T where ID=10；
 ```
