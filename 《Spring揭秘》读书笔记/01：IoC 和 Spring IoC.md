@@ -1,9 +1,12 @@
----
-title: IoC和Spring IoC
-description: 《Spring揭秘》读书笔记
-abbrlink: 40742
-date: 2022-11-30 18:39:50
----
+<h1>IoC 和 Spring IoC</h1>
+
+> 《Spring揭秘》读书笔记
+
+- [IoC 概述](#ioc-概述)
+  - [IoC Service Provider](#ioc-service-provider)
+- [Spring IoC 概述](#spring-ioc-概述)
+  - [BeanFactory](#beanfactory)
+  - [ApplicationContext](#applicationcontext)
 
 # IoC 概述
 
@@ -58,7 +61,7 @@ public FXNewsProvider(NewsListener newsListener, NewsPersister newsPersister) {
 }
 ```
 
-让其他人去构造这两个对象，新闻类直接用就好了。所以，简单点来说，IoC的理念就是：**让别人为你服务！**
+让其他人去构造这两个对象，新闻类直接用就好了。所以，简单点来说，**IoC的理念就是：让别人为你服务！**
 
 通常情况下，被注入对象会直接依赖于被依赖对象。但是，在IoC的场景中，二者之间通过IoC Service Provider来打交道，所有的被注入对象和依赖对象现在由IoC Service Provider统一管理。
 
@@ -84,7 +87,7 @@ Spring 提供了两种容器类型：**BeanFactory** 和 **ApplicationContext**�
 
 ## BeanFactory
 
-基础类型 IoC 容器，提供完整的 IoC 服务支持，默认采用延迟初始化策略。**所以，相对来说，容器启动初期速度较快，所需要的资源有限。**对于资源有限，并且功能要求不是很严格的场景，BeanFactory是比较合适的 IoC 容器选择。
+基础类型 IoC 容器，提供完整的 IoC 服务支持，默认采用延迟初始化策略。**所以，相对来说，容器启动初期速度较快，所需要的资源有限。** 对于资源有限，并且功能要求不是很严格的场景，BeanFactory是比较合适的 IoC 容器选择。
 
 ## ApplicationContext
 

@@ -1,14 +1,17 @@
----
-title: Spring的IoC容器之 ApplicationContext
-abbrlink: 11908
-date: 2022-11-16 23:15:56
-description: 《Spring揭秘》读书笔记
----
+<h1>Spring 的 IoC 容器之 ApplicationContext</h1>
+
+> 《Spring揭秘》读书笔记
+
+- [统一资源加载策略](#统一资源加载策略)
+  - [ResourceLoader](#resourceloader)
+  - [ApplicationContext与ResourceLoader](#applicationcontext与resourceloader)
+- [容器内事件发布](#容器内事件发布)
+  - [ApplicationContext 事件发布](#applicationcontext-事件发布)
 
 **常用实现：**
 
 - `org.springframework.context.support.FileSystemXmlApplicationContext` 在默情况下，从文件系统加载 Bean 定义以及相关资源的 ApplicationContext 实现。
-- `org.springframework.context.support.classPathXmlApplicationContext` 在默认情况下，从 Classpath 加载bean定义以及相关资源的 ApplicationContext 实现。
+- `org.springframework.context.support.ClassPathXmlApplicationContext` 在默认情况下，从 Classpath 加载bean定义以及相关资源的 ApplicationContext 实现。
 - `org.springframework.web.context.support.XmlWebApplicationContext` Spring 提供的用于 Web 应用程序的 ApplicationContext 实现。
 
 作为 Spring 提供的较之 BeanFactory 更为先进的 IoC 容器实现，ApplicationContext 除了拥有 BeanFactory 支持的所有功能之外，还有一些特有的特性，即统一资源加载策略、国际化信息支持、容器内事件发布、多配置模块加载简化等。
@@ -88,11 +91,9 @@ AbstractApplicationContext 类的内部声明有一个 resourcePatternResolver �
 
 当然要求业务对象要实现 Spring 的接口就过于依赖 Spring 框架了，但我觉得这没什么不好的。
 
-
-
 # 容器内事件发布
 
-Java SE 提供了实现自定义事件发布功能的基础类，即 `java.util.EventObject` 类和 `java.util.EventListener` 接口。所有的自定义事件类型可以通过扩展 EventObject 来实现，而事件监听器则可以实现 EventListener 接口。使用起来可以像这样：
+Java SE 提供了实现自定义事件发布功能的基础类，即 `java.util.EventObject` 类和 `java.util.EventListener` 接口。所有的自定义事件类型可以通过扩展 EventObject 来实现，而事件监听器则可以实现 EventListener 接口。
 
 ## ApplicationContext 事件发布
 

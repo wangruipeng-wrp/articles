@@ -1,15 +1,33 @@
----
-title: AspectJ 形式的 Spring AOP
-abbrlink: 22033
-date: 2022-12-08 13:55:01
-description: 《Spring揭秘》读书笔记
----
+<h1>@AspectJ 形式的 Spring AOP</h1>
+
+> 《Spring揭秘》读书笔记
+
+- [@AspectJ 形式的AOP](#aspectj-形式的aop)
+- [@AspectJ 形式：Pointcut 的声明](#aspectj-形式pointcut-的声明)
+  - [execution](#execution)
+  - [within](#within)
+  - [this 和 target](#this-和-target)
+  - [args](#args)
+  - [@within](#within-1)
+  - [@target](#target)
+  - [@args](#args-1)
+  - [@annotation](#annotation)
+- [@AspectJ 形式：Pointcut 的实现](#aspectj-形式pointcut-的实现)
+- [@AspectJ 形式：Advice](#aspectj-形式advice)
+  - [@Before](#before)
+  - [@AfterThrowing](#afterthrowing)
+  - [@AfterReturning](#afterreturning)
+  - [@After](#after)
+  - [@Around](#around)
+  - [@DeclareParents](#declareparents)
+  - [Advice 的执行顺序](#advice-的执行顺序)
+- [@AspectJ 形式：Aspect 的实例化模式](#aspectj-形式aspect-的实例化模式)
 
 Spring 框架 2.0 版本发布之后，Spring AOP 增加了新的特性，或者说增加了新的使用方式。2.0之后的 Spring AOP 集成了 AspectJ，但底层的各种概念的实现以及织入方式，依然使用的是 Spring 1.x 原先的实现体系。
 
 @AspectJ 代表一种定义 Aspect 的风格，它让我们能够以 POJO 的形式定义 Aspect，没有其他接口定义限制。唯一需要的，就是使用相应的注解标注这些 Aspect 定义的 POJO 类。之后，Spring AOP 会根据标注的注解搜索这些 Aspect 定义类，然后将其织入系统。
 
-# @AspectJ 形式：AOP
+# @AspectJ 形式的AOP
 
 看看 @AspectJ 形式的 AOP 应该怎么使用，定义一个用于性能监控的 AOP：
 
@@ -82,8 +100,8 @@ public class SpringDemoApplication {
 
 **@AspectJ 形式的 Pointcut 声明包含如下两个部分：**
 
-1. **Pointcut Expression。**Pointcut Expression 的载体为 @Pointcut，该注解是方法级别的注解，所以 Pointcut Expression 不能脱离某个方法单独声明。Pointcut Expression 是真正规定 Pointcut 匹配规则的地方，可以通过 @Pointcut 直接指定 AspectJ 形式的 Pointcut 表达式，由两部分组成，分别是标识符和匹配模式，将在下文详细说明。
-2. **Pointcut Signature。**Pointcut Signature 在这里具体化为一个方法定义，它是 Pointcut Expression 的载体。Pointcut Signature 所在的方法定义，除了返回类型必须是 void 之外，没有其他限制。方法修饰符所起的作用与 Java 语言中语义相同。可以将 Pointcut Signature 作为相应 Pointcut Expression 标识符，在 Pointcut Expression 的定义中取代重复的 Pointcut 表达式定义，像这样：
+1. **Pointcut Expression。** Pointcut Expression 的载体为 @Pointcut，该注解是方法级别的注解，所以 Pointcut Expression 不能脱离某个方法单独声明。Pointcut Expression 是真正规定 Pointcut 匹配规则的地方，可以通过 @Pointcut 直接指定 AspectJ 形式的 Pointcut 表达式，由两部分组成，分别是标识符和匹配模式，将在下文详细说明。
+2. **Pointcut Signature。** Pointcut Signature 在这里具体化为一个方法定义，它是 Pointcut Expression 的载体。Pointcut Signature 所在的方法定义，除了返回类型必须是 void 之外，没有其他限制。方法修饰符所起的作用与 Java 语言中语义相同。可以将 Pointcut Signature 作为相应 Pointcut Expression 标识符，在 Pointcut Expression 的定义中取代重复的 Pointcut 表达式定义，像这样：
 
 ```java
 @Aspect

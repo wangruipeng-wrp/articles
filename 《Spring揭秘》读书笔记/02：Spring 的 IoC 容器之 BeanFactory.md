@@ -1,9 +1,20 @@
----
-title: Spring的IoC容器之 BeanFactory
-abbrlink: 55764
-date: 2022-11-16 23:15:39
-description: 《Spring揭秘》读书笔记
----
+<h1>Spring 的 IoC 容器之 BeanFactory</h1>
+
+> 《Spring揭秘》读书笔记
+
+- [BeanFactory](#beanfactory)
+- [Bean 的 scope](#bean-的-scope)
+  - [singleton](#singleton)
+  - [prototype](#prototype)
+  - [自定义 scope](#自定义-scope)
+- [BeanFactory 运行阶段](#beanfactory-运行阶段)
+  - [容器启动阶段](#容器启动阶段)
+  - [Bean实例化阶段](#bean实例化阶段)
+    - [Bean的实例化与BeanWrapper](#bean的实例化与beanwrapper)
+    - [各色的 Aware 接口](#各色的-aware-接口)
+    - [BeanPostProcessor](#beanpostprocessor)
+    - [InitializingBean和@PostConstruct](#initializingbean和postconstruct)
+    - [DisposableBean与@PreDestroy](#disposablebean与predestroy)
 
 # BeanFactory
 
@@ -38,7 +49,7 @@ FXNewsProvider newsProvider = (FXNewsProvider) container.getBean("BeanName");
 newsProvider.getAndPersistNews();
 ```
 
-虽然把对象直接交给 BeanFactory 管理，但是对象之间的依赖绑定还是需要程序员自己描述清楚才可以。可以直接编码来描述对象之间的依赖关系，也可以使用配置文件来描述比如 .xml 文件，或者是注解比如 `@Autowired` 和 `@Component` ，但不管是什么方式，最终都会转换成代码的方式运行。
+虽然把对象直接交给 BeanFactory 管理，但是对象之间的依赖绑定还是需要程序员自己描述清楚才可以。可以直接编码来描述对象之间的依赖关系，也可以使用配置文件来描述比如 `.xml` 文件，或者是注解比如 `@Autowired` 和 `@Component` ，但不管是什么方式，最终都会转换成代码的方式运行。
 
 像这样：
 
@@ -190,7 +201,7 @@ Bean 的实例化过程像这样：
 
 ![Bean实例化过程](https://wrp-blog-image.oss-cn-beijing.aliyuncs.com/blog-images/Bean实例化过程.jpg)
 
-Spring 容器将对其所管理的对象全部给予统一的生命周期管理，这些被管理的对象完全摆脱了原来那种 “new 完后被使用，脱离作用于后即被回收” 的命运。
+Spring 容器将对其所管理的对象全部给予统一的生命周期管理，这些被管理的对象完全摆脱了原来那种 “new 完后被使用，脱离作用域后即被回收” 的命运。
 
 ### Bean的实例化与BeanWrapper
 

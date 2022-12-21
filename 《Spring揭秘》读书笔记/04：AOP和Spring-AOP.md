@@ -1,9 +1,18 @@
----
-title: AOP和Spring AOP
-abbrlink: 9732
-date: 2022-11-16 23:33:41
-description: 《Spring揭秘》读书笔记
----
+<h1>AOP 和 Spring AOP</h1>
+
+> 《Spring揭秘》读书笔记
+
+- [AOP](#aop)
+  - [AOP 的概念实体](#aop-的概念实体)
+    - [Joinpoint](#joinpoint)
+    - [Pointcut](#pointcut)
+    - [Advice](#advice)
+    - [Aspect](#aspect)
+    - [织入和织入器](#织入和织入器)
+    - [目标对象](#目标对象)
+- [Spring AOP](#spring-aop)
+  - [动态代理机制](#动态代理机制)
+  - [字节码生成](#字节码生成)
 
 # AOP
 
@@ -23,15 +32,14 @@ Java 平台上的 AOP 实现机制：动态代理、动态字节码增强、Java
 
 - 方法调用（method call）：方法被调用时所处的程序执行点
 - 方法执行（method execution）：方法内部执行开始时点
-
-方法调用是在调用对象上的执行点，而方法执行则是在被调用到的方法逻辑执行的时点。对于同一对象，方法调用要先于方法执行。
-
 - 构造方法调用：程序执行过程中某个对象调用其构造方法进行初始化的时点
 - 构造方法执行：某个对象构造方法内部执行的开始时点
 - 字段设置：对象的某个属性通过 setter 方法被设置 **或者** 直接被设置的时点
 - 字段获取：某个对象相应属性被访问的时点，可以是 getter 方法访问 **或者** 是直接访问
 - 异常处理执行：在某些异常类型抛出后，对应的异常处理逻辑执行的时点
 - 类初始化：类中某些静态类型或者静态块的初始化时点
+
+> 方法调用是在调用对象上的执行点，而方法执行则是在被调用到的方法逻辑执行的时点。对于同一对象，方法调用要先于方法执行。
 
 ### Pointcut
 
@@ -51,17 +59,17 @@ Advice 是单一横切关注点逻辑的载体，它代表将会植入到 Joinpo
 
 按照 Advice 在 Joinpoint 位置执行实际的差异或者完成功能的不同，Advice 可以分成多种具体形式，如下：
 
-1. **Before Advice：**在 Joinpoint 指定位置之前执行的 Advice 类型。
-2. **After Advice：**在相应连接点之后执行的 Advice 类型，但该类型的 Advice 还可以细分为以下三种：
+1. **Before Advice：** 在 Joinpoint 指定位置之前执行的 Advice 类型。
+2. **After Advice：** 在相应连接点之后执行的 Advice 类型，但该类型的 Advice 还可以细分为以下三种：
    1. After returning Advice：当前 Joinpoint 处执行流程正常完成后执行；
    2. After throwing Advice：在当前 Joinpoint 执行过程中抛出异常的情况下才执行；
    3. After Advice：不管 Joinpoint 处执行流程正常结束还是抛出异常都会执行，类似 finally 块。
-3. **Around Advice：**对附加其上的 Joinpoint 进行 “包裹” 可以在 Joinpoint 之前和之后都指定相应的逻辑，甚至于中断或者忽略 Joinpoint 处原来程序流程的执行，比如 Servlet 的 Filter 功能就是一种 Around Advice 的体现。
-4. **Introduction：**Introduction 可以为原有的对象添加新的特性或者行为，这就好像你是一个普通公民，但让你穿军装、戴军帽，添加了军人类型的 Introduction 之后，你就拥有军人的特性或者行为。
+3. **Around Advice：** 对附加其上的 Joinpoint 进行 “包裹” 可以在 Joinpoint 之前和之后都指定相应的逻辑，甚至于中断或者忽略 Joinpoint 处原来程序流程的执行，比如 Servlet 的 Filter 功能就是一种 Around Advice 的体现。
+4. **Introduction：** Introduction 可以为原有的对象添加新的特性或者行为，这就好像你是一个普通公民，但让你穿军装、戴军帽，添加了军人类型的 Introduction 之后，你就拥有军人的特性或者行为。
 
 ### Aspect
 
-Aspect 是对系统中的横切逻辑关注点逻辑进行模块化封装的 AOP 概念实体。通常情况下，Aspect 可以包含多个 Pointcut 以及相关 Advice 定义。
+Aspect 是对系统中的横切逻辑和关注点逻辑进行模块化封装的 AOP 概念实体。通常情况下，Aspect 可以包含多个 Pointcut 以及相关 Advice 定义。
 
 > 就是对 Pointcut 和 Advice 进行统一的封装和处理。
 
